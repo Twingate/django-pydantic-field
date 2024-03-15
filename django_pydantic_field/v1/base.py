@@ -2,8 +2,8 @@ import typing as t
 
 import pydantic
 from django.core.serializers.json import DjangoJSONEncoder
-from pydantic.json import pydantic_encoder
-from pydantic.typing import display_as_type
+from pydantic.v1.json import pydantic_encoder
+from pydantic.v1.typing import display_as_type
 
 from .utils import get_local_namespace, inherit_configs
 
@@ -18,10 +18,10 @@ __all__ = (
 ST = t.TypeVar("ST", bound="SchemaT")
 
 if t.TYPE_CHECKING:
-    from pydantic.dataclasses import DataclassClassOrWrapper
+    from pydantic.v1.dataclasses import DataclassClassOrWrapper
 
     SchemaT = t.Union[
-        pydantic.BaseModel,
+        pydantic.v1.BaseModel,
         DataclassClassOrWrapper,
         t.Sequence[t.Any],
         t.Mapping[str, t.Any],
@@ -29,8 +29,8 @@ if t.TYPE_CHECKING:
         t.FrozenSet[t.Any],
     ]
 
-    ModelType = t.Type[pydantic.BaseModel]
-    ConfigType = t.Union[pydantic.ConfigDict, t.Type[pydantic.BaseConfig], t.Type]
+    ModelType = t.Type[pydantic.v1.BaseModel]
+    ConfigType = t.Union[pydantic.v1.ConfigDict, t.Type[pydantic.v1.BaseConfig], t.Type]
 
 
 class SchemaEncoder(DjangoJSONEncoder):
@@ -50,7 +50,7 @@ class SchemaEncoder(DjangoJSONEncoder):
     def encode(self, obj):
         try:
             data = self.schema(__root__=obj).json(**self.export_params)
-        except pydantic.ValidationError:
+        except pydantic.v1.ValidationError:
             if self.raise_errors:
                 raise
 
@@ -86,7 +86,7 @@ def wrap_schema(
 ) -> "ModelType":
     type_name = _get_field_schema_name(schema)
     params = _get_field_schema_params(schema, config, allow_null, **kwargs)
-    return pydantic.create_model(type_name, **params)
+    return pydantic.v1.create_model(type_name, **params)
 
 
 def prepare_schema(schema: "ModelType", owner: t.Any = None) -> None:
