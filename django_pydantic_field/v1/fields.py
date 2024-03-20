@@ -72,7 +72,7 @@ class PydanticSchemaField(JSONField, t.Generic[base.ST]):
         try:
             assert self.decoder is not None
             return self.decoder().decode(value)
-        except pydantic.ValidationError as e:
+        except pydantic.v1.ValidationError as e:
             raise django_exceptions.ValidationError(e.errors())
 
     def get_prep_value(self, value):

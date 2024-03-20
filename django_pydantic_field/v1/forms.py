@@ -47,7 +47,7 @@ class SchemaField(JSONField, t.Generic[base.ST]):
     def to_python(self, value):
         try:
             return super().to_python(value)
-        except pydantic.ValidationError as e:
+        except pydantic.v1.ValidationError as e:
             raise ValidationError(
                 self.error_messages["schema_error"],
                 code="invalid",
@@ -62,7 +62,7 @@ class SchemaField(JSONField, t.Generic[base.ST]):
     def bound_data(self, data, initial):
         try:
             return super().bound_data(data, initial)
-        except pydantic.ValidationError:
+        except pydantic.v1.ValidationError:
             return InvalidJSONInput(data)
 
     def get_bound_field(self, form, field_name):

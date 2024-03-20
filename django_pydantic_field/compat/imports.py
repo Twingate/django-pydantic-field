@@ -2,7 +2,7 @@ import functools
 import importlib
 import types
 
-from .pydantic import PYDANTIC_V1, PYDANTIC_V2, PYDANTIC_VERSION
+from .pydantic import PYDANTIC_V1, PYDANTIC_V2
 
 __all__ = ("compat_getattr", "compat_dir")
 
@@ -37,7 +37,7 @@ def _import_compat_module(module_name: str) -> types.ModuleType:
     elif PYDANTIC_V1:
         module_path_parts.append("v1")
     else:
-        raise RuntimeError(f"Pydantic {PYDANTIC_VERSION} is not supported")
+        raise RuntimeError("Only Pydantic 1 & 2 are supported")
 
     if module:
         module_path_parts.append(module)

@@ -5,7 +5,7 @@ import typing as ty
 import typing_extensions as te
 
 import typing_extensions as te
-from pydantic import BaseConfig, BaseModel, ConfigDict
+from pydantic.v1 import BaseConfig, BaseModel, ConfigDict
 
 try:
     from pydantic.dataclasses import DataclassClassOrWrapper as PydanticDataclass

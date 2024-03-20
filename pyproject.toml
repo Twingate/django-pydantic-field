@@ -1,16 +1,14 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
-[project]
+[tool.poetry]
 name = "django-pydantic-field"
 version = "0.3.3"
 description = "Django JSONField with Pydantic models as a Schema"
 readme = "README.md"
-license = { file = "LICENSE" }
-authors = [
-    { name = "Savva Surenkov", email = "savva@surenkov.space" },
-]
+license = "LICENSE"
+authors = ["Savva Surenkov <savva@surenkov.space>"]
 
 keywords = ["django", "pydantic", "json", "schema"]
 classifiers = [
@@ -40,12 +38,10 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 
-requires-python = ">=3.7"
-dependencies = [
-    "pydantic>=1.10,<3",
-    "django>=3.1,<6",
-    "typing_extensions",
-]
+[tool.poetry.dependencies]
+python = ">=3.8"
+pydantic = ">=2,<3"
+django = ">=3.1,<6"
 
 [project.optional-dependencies]
 openapi = ["uritemplate"]
